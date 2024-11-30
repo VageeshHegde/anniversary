@@ -15,11 +15,10 @@
       padding: 0;
       background: linear-gradient(to bottom, #fbe7e9, #ffffff);
       color: #333;
-      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      min-height: 100vh; /* Allows scrolling if content exceeds viewport height */
     }
     .card {
       max-width: 90%;
@@ -68,7 +67,6 @@
       height: 100%;
       z-index: 10000;
       pointer-events: none;
-      /* overflow: hidden; */
     }
 
     .falling-hearts i {
