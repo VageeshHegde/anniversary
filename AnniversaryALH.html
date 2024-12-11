@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Anniversary!</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #fbe7e9, #ffffff);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh; /* Allows scrolling if content exceeds viewport height */
+    }
+    .card {
+      max-width: 90%;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      z-index: 10; /* Ensure card is above hearts */
+      background-color: white;
+    }
+    .card-header {
+      background-color: #ff6f91;
+      color: white;
+      font-size: 1.5rem;
+      text-align: center;
+      border-radius: 15px 15px 0 0;
+    }
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .card-body .icon-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap; /* Ensures wrapping on smaller screens */
+      gap: 10px; /* Adds spacing between icons */
+    }
+    .card-body img {
+      width: 160px;
+      height: 150px;
+      border-radius: 10px;
+    }
+    .card-footer {
+      text-align: center;
+      background-color: #f3f3f3;
+      color: #666;
+      border-radius: 0 0 15px 15px;
+    }
+
+    .falling-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10000;
+      pointer-events: none;
+    }
+
+    .falling-hearts i {
+      position: absolute;
+      color: #ff6f91;
+      font-size: 1.5rem;
+      animation: fall 5s infinite linear;
+      z-index: 1000;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10%) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(3000%) rotate(360deg);
+        opacity: 0.5;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="falling-hearts">
+  <!-- Generate multiple hearts for animation -->
+  <i class="fas fa-heart" style="left: 10%; animation-delay: 0s;"></i>
+  <i class="fas fa-heart" style="left: 20%; animation-delay: 0.5s;"></i>
+  <i class="fas fa-heart" style="left: 30%; animation-delay: 1s;"></i>
+  <i class="fas fa-heart" style="left: 40%; animation-delay: 1.5s;"></i>
+  <i class="fas fa-heart" style="left: 50%; animation-delay: 2s;"></i>
+  <i class="fas fa-heart" style="left: 60%; animation-delay: 2.5s;"></i>
+  <i class="fas fa-heart" style="left: 70%; animation-delay: 3s;"></i>
+  <i class="fas fa-heart" style="left: 80%; animation-delay: 3.5s;"></i>
+  <i class="fas fa-heart" style="left: 90%; animation-delay: 4s;"></i>
+  <i class="fas fa-heart" style="left: 100%; animation-delay: 4.5s;"></i>
+</div>
+
+<div class="card text-center">
+  <div class="card-header">
+    Happy Anniversary <i class="fa-solid fa-gift"></i>, Ann Aggi & LM Agga! ❤️
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Wishing you both a day filled with love and happiness!</h5>
+    <div class="icon-row">
+      <!-- Left Couple Icon -->
+      <img src="LMH.jpg" alt="Couple Icon Left">
+      <!-- Center Couple Photo -->
+      <img src="AL.jpg" alt="Couple Photo">
+      <!-- Right Couple Icon -->
+      <img src="ALH.jpg" alt="Couple Icon Right">
+    </div>
+    <p class="card-text">Made with ❤️ to celebrate your beautiful journey.</p>
+  </div>
+  <div class="card-footer">
+    Wishing you both a wonderful anniversary and many more years of happiness ahead!
+  </div>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Generate random heart positions for animation
+  const hearts = document.querySelectorAll('.falling-hearts i');
+  hearts.forEach(heart => {
+    heart.style.left = `${Math.random() * 100}%`;
+    heart.style.animationDuration = `${Math.random() * 3 + 3}s`;
+    heart.style.animationDelay = `${Math.random() * 2}s`;
+  });
+</script>
+</body>
+</html>
