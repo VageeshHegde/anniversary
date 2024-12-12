@@ -21,13 +21,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh; /* Allows scrolling if content exceeds viewport height */
+      min-height: 100vh;
     }
     .card {
       max-width: 90%;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      z-index: 10; /* Ensure card is above hearts */
+      z-index: 10;
       background-color: white;
     }
     .card-header {
@@ -47,13 +47,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-wrap: wrap; /* Ensures wrapping on smaller screens */
-      gap: 10px; /* Adds spacing between icons */
+      flex-wrap: wrap;
+      gap: 10px;
     }
     .card-body img {
       width: 160px;
       height: 150px;
       border-radius: 10px;
+      cursor: pointer;
     }
     .card-footer {
       text-align: center;
@@ -61,7 +62,47 @@
       color: #666;
       border-radius: 0 0 15px 15px;
     }
-
+    .modal-content {
+      position: relative;
+    }
+    .modal-content img {
+      width: auto;
+      max-height: 500px; /* Set a consistent max height */
+      margin: auto;
+      display: block;
+    }
+    .modal-footer {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none; /* Allow clicking only on icons */
+    }
+    .modal-footer .fa {
+      pointer-events: auto;
+      cursor: pointer;
+      font-size: 2rem;
+      color: white;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+    .modal-footer .fa:hover {
+      color: #ff6f91;
+    }
+    .close-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      color: white;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      z-index: 10;
+    }
+    .close-icon:hover {
+      color: #ff6f91;
+    }
     .falling-hearts {
       position: fixed;
       top: 0;
@@ -71,7 +112,6 @@
       z-index: 10000;
       pointer-events: none;
     }
-
     .falling-hearts i {
       position: absolute;
       color: #ff6f91;
@@ -79,7 +119,6 @@
       animation: fall 5s infinite linear;
       z-index: 1000;
     }
-
     @keyframes fall {
       0% {
         transform: translateY(-10%) rotate(0deg);
@@ -115,12 +154,9 @@
   <div class="card-body">
     <h5 class="card-title">Wishing you both a day filled with love and happiness!</h5>
     <div class="icon-row">
-      <!-- Left Couple Icon -->
-      <img src="LMH.jpg" alt="Couple Icon Left">
-      <!-- Center Couple Photo -->
-      <img src="AL.jpg" alt="Couple Photo">
-      <!-- Right Couple Icon -->
-      <img src="ALH.jpg" alt="Couple Icon Right">
+      <img src="LMH.jpg" alt="Couple Icon Left" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-image="LMH.jpg">
+      <img src="AL.jpg" alt="Couple Photo" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-image="AL.jpg">
+      <img src="ALH.jpg" alt="Couple Icon Right" data-bs-toggle="modal" data-bs-target="#imageModal" data-bs-image="ALH.jpg">
     </div>
     <p class="card-text">Made with ❤️ to celebrate your beautiful journey.</p>
   </div>
@@ -129,9 +165,46 @@
   </div>
 </div>
 
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <i class="fa fa-times close-icon" data-bs-dismiss="modal" title="Close"></i>
+      <img id="modalImage" src="" alt="Modal Image">
+      <div class="modal-footer">
+        <i class="fa fa-chevron-left" id="prevImage" title="Previous"></i>
+        <i class="fa fa-chevron-right" id="nextImage" title="Next"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Bootstrap 5 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+  const images = ["LMH.jpg", "AL.jpg", "ALH.jpg"]; // List of image sources
+  let currentIndex = 0;
+
+  // Event listener for thumbnail clicks
+  document.querySelectorAll('.icon-row img').forEach((img, index) => {
+    img.addEventListener('click', () => {
+      currentIndex = index;
+      document.getElementById('modalImage').src = images[currentIndex];
+    });
+  });
+
+  // Previous button
+  document.getElementById('prevImage').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    document.getElementById('modalImage').src = images[currentIndex];
+  });
+
+  // Next button
+  document.getElementById('nextImage').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    document.getElementById('modalImage').src = images[currentIndex];
+  });
+
   // Generate random heart positions for animation
   const hearts = document.querySelectorAll('.falling-hearts i');
   hearts.forEach(heart => {
@@ -140,5 +213,6 @@
     heart.style.animationDelay = `${Math.random() * 2}s`;
   });
 </script>
+
 </body>
 </html>
